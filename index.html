@@ -23,6 +23,7 @@
     --line:#E4DEF2;        /* borders, dividers */
     --signal:#8471C7;      /* primary accent — lilac/violet */
     --signal-soft:#DED4F2; /* light lilac tint (hover states) */
+    --link:#5F4DA8;        /* link text — darker than --signal for readability */
     --gold:#2FADA6;        /* secondary accent — turquoise (kept the name "gold" internally, now turquoise) */
     --disp: 'Montserrat', sans-serif;
     --body: 'IBM Plex Serif', serif;
@@ -44,8 +45,8 @@
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-
-  a{color:var(--signal); text-decoration:none;}
+  
+  a{color:var(--link); font-weight:500; text-decoration:none;}
   a:hover{text-decoration:underline;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
 
@@ -288,7 +289,9 @@
         <li><a href="#research" class="lang-en">Research</a><a href="#research" class="lang-es">Investigación</a></li>
         <li><a href="#publications" class="lang-en">Publications</a><a href="#publications" class="lang-es">Publicaciones</a></li>
         <li><a href="#outreach" class="lang-en">Outreach</a><a href="#outreach" class="lang-es">Divulgación</a></li>
+        <!-- Play section temporarily disabled — see commented-out section below
         <li><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
+        -->
         <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-es">Contacto</a></li>
       </ul>
       <div class="lang-switch">
@@ -672,6 +675,11 @@
     document.querySelectorAll('.lang-es').forEach(el => el.style.display = (lang==='es') ? '' : 'none');
     document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang===lang));
   }
+  // Fix: force the correct language state via JS on load, instead of
+  // relying on the CSS ".lang-es{display:none}" default — some later
+  // classes (like .eyebrow{display:block}) have equal CSS specificity
+  // and were winning the cascade, showing EN and ES at the same time.
+  setLang('en');
 
   /* ============================================================
      ROTOR VISUAL — start
