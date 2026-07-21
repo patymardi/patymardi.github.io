@@ -204,19 +204,14 @@
   }
 
   /* ---- Outreach / media grid ---- */
-  .media-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .media-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
   .media-card{
     background:var(--bg-raised); border:1px solid var(--line); border-radius:8px; overflow:hidden;
   }
-  .media-thumb{
-    aspect-ratio:16/9; background:var(--bg-sunken);
-    display:flex; align-items:center; justify-content:center;
-    color:var(--ink-dim); font-family:var(--mono); font-size:0.72rem; text-align:center; padding:10px;
-    border-bottom:1px solid var(--line);
-  }
-  .media-card .media-body{ padding:16px; }
-  .media-card h3{ font-family:var(--disp); font-size:0.95rem; font-weight:600; margin-bottom:6px;}
-  .media-card p{ color:var(--ink-dim); font-size:0.85rem;}
+  .media-thumb{ aspect-ratio:4/3; font-size:0.66rem; padding:6px; }
+  .media-card h3{ font-size:0.82rem; }
+  .media-card .media-body{ padding:10px; }
+  .media-card p{ font-size:0.76rem; }
 
   /* ---- Play / ablation game ---- */
   .play-box{
@@ -268,7 +263,7 @@
     .rotor-frame{ order:-1; max-width:340px; margin:0 auto;}
     .about-grid{ grid-template-columns:1fr;}
     .cards{ grid-template-columns:1fr;}
-    .media-grid{ grid-template-columns:1fr;}
+    .media-grid{ grid-template-columns:repeat(2,1fr);}
     .contact-box{ grid-template-columns:1fr;}
     .navlinks{ display:none;}
   }
@@ -289,6 +284,7 @@
         <li><a href="#research" class="lang-en">Research</a><a href="#research" class="lang-es">Investigación</a></li>
         <li><a href="#publications" class="lang-en">Publications</a><a href="#publications" class="lang-es">Publicaciones</a></li>
         <li><a href="#outreach" class="lang-en">Outreach</a><a href="#outreach" class="lang-es">Divulgación</a></li>
+        <li><a href="#induce" class="lang-en">Induce</a><a href="#induce" class="lang-es">Inducir</a></li>
         <li><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
         <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-es">Contacto</a></li>
       </ul>
@@ -318,7 +314,8 @@
       <p class="lede lang-en">
         <strong>How do we build cardiac digital twins personalized enough to represent an
         individual patient's pathophysiology, and reliable enough to be used as tools in
-        precision medicine?</strong> That question drives my work modeling patient-specific
+        precision medicine?</strong> 
+        That question drives my work modeling patient-specific
         atrial computer models.
       </p>
       <p class="lede lang-es">
@@ -555,6 +552,19 @@
             <div class="pub-meta"><a href="https://doi.org/10.5281/zenodo.10724337">DOI: 10.5281/zenodo.10724337</a></div>
           </div>
         </li>
+        <li>
+          <span class="pub-year">Code</span>
+          <div>
+            <div class="pub-title">DIVAID</div><div class="pub-meta"><a href="https://gitlab.kit.edu/kit/ibt-public/divaid">gitlab.kit.edu/kit/ibt-public/divaid</a></div></div>
+        </li>
+        <li>
+          <span class="pub-year">Code</span>
+          <div><div class="pub-title">openCARP — ERP restitution example</div><div class="pub-meta"><a href="https://opencarp.org/documentation/examples/02_ep_tissue/03f_erp_restitution">opencarp.org →</a></div></div>
+        </li>
+        <li>
+          <span class="pub-year">2023</span>
+          <div><div class="pub-title">VR-Tool</div><div class="pub-meta"><a href="https://zenodo.org/records/10222759">Zenodo: 10222759</a></div></div>
+        </li>
       </ul>
     </div>
   </section>
@@ -628,6 +638,16 @@
           <p style="margin-top:8px;"><a href="https://esc365.escardio.org/presentation/319392">Watch on ESC 365 →</a></p>
         </div>
       </div>
+
+      <div class="media-card">
+        <div class="media-thumb lang-en">💼 LinkedIn</div>
+        <div class="media-thumb lang-es">💼 LinkedIn</div>
+        <div class="media-body">
+          <h3 class="lang-en">Driving Innovation at the Intersection of HPC, Health, and Gender Equity</h3>
+          <h3 class="lang-es">[Título de esta publicación]</h3>
+          <p style="margin-top:6px;"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7436386638227951616/">View on LinkedIn →</a></p>
+        </div>
+      </div>
     
       <div class="media-card">
         <div style="aspect-ratio:16/9;">
@@ -670,6 +690,63 @@
     </div>
       
   </section>
+  
+  <section id="induce">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="lang-en">Induce</h2>
+        <h2 class="lang-es">Inducir</h2>
+      </div>
+      <div class="play-box">
+        <p class="play-intro lang-en">
+          A 1D ring of tissue (same Aliev–Panfilov model), the classic minimal setup for
+          studying reentry — you can watch the actual action potential at a monitoring
+          point while you play. Click <strong>Stimulate</strong> once to fire a wave; it
+          normally dies out on its own. Click it a second time while the site is still
+          <em>partially</em> refractory (not fully recovered, not fully blocked) and the
+          wave can end up travelling in one direction only — circling the ring forever.
+          That's a self-sustaining arrhythmia, induced.
+        </p>
+        <p class="play-intro lang-es">
+          Un anillo 1D de tejido (mismo modelo de Aliev–Panfilov), el montaje mínimo
+          clásico para estudiar la reentrada — puedes ver el potencial de acción real en
+          un punto de monitoreo mientras juegas. Da clic en <strong>Estimular</strong> una
+          vez para disparar una onda; normalmente se extingue sola. Da clic una segunda
+          vez mientras el sitio está <em>parcialmente</em> refractario (ni totalmente
+          recuperado, ni totalmente bloqueado) y la onda puede terminar viajando en una
+          sola dirección — circulando el anillo para siempre. Eso es una arritmia
+          autosostenida, inducida.
+        </p>
+        <div class="game-layout">
+          <div>
+            <div class="game-canvas-wrap" style="margin-bottom:12px; aspect-ratio:1/1; max-width:220px;">
+              <canvas id="ring-canvas" width="200" height="200" style="width:100%; height:100%; display:block;"></canvas>
+            </div>
+            <div class="game-canvas-wrap">
+              <canvas id="trace-canvas" width="400" height="100" style="width:100%; height:auto; display:block;"></canvas>
+            </div>
+          </div>
+          <div class="game-panel">
+            <div class="game-stat">
+              <strong id="lap-count">0</strong>
+              <span class="lang-en">laps completed</span><span class="lang-es">vueltas completadas</span>
+            </div>
+            <div class="game-stat" id="induce-status" style="font-family:var(--disp); font-weight:600; color:var(--ink);">
+              <span class="lang-en">Sinus rhythm</span><span class="lang-es">Ritmo sinusal</span>
+            </div>
+            <button class="btn" onclick="stimulateRing()" style="cursor:pointer;">
+              <span class="lang-en">⚡ Stimulate</span><span class="lang-es">⚡ Estimular</span>
+            </button>
+            <button class="btn" onclick="resetRing()" style="cursor:pointer;">
+              <span class="lang-en">Reset</span><span class="lang-es">Reiniciar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 
   <section id="play">
     <div class="wrap">
@@ -998,6 +1075,144 @@
     window.resetAblationGame = function(){ initGrid(); };
   })();
 </script>
+/* ============================================================
+     RING MODEL — 1D reentry induction (Aliev–Panfilov)
+     Same reaction-diffusion model as the tissue game, on a
+     periodic 1D ring instead of a 2D sheet. This is the classic
+     minimal model of "circus movement" reentry: a wave that
+     fails to die out because it never meets its own refractory
+     tail from the opposite direction.
+     ============================================================ */
+  (function(){
+    const NR = 150;
+    const k=8, a=0.15, eps0=0.002, mu1=0.2, mu2=0.3, D=1;
+    const dt=0.05, SUBSTEPS=4;
+    const STIM_SITE = 0;
+    const MONITOR = Math.floor(NR/2); // opposite side of the ring
 
+    const ringCanvas = document.getElementById('ring-canvas');
+    const traceCanvas = document.getElementById('trace-canvas');
+    if(!ringCanvas || !traceCanvas) return;
+    const rctx = ringCanvas.getContext('2d');
+    const tctx = traceCanvas.getContext('2d');
+
+    const lapEl = document.getElementById('lap-count');
+    const statusEl = document.getElementById('induce-status');
+
+    let u, v, u2, v2, laps, wasHighAtMonitor, history;
+
+    function seed(){
+      u = new Float32Array(NR);
+      v = new Float32Array(NR);
+      u2 = new Float32Array(NR);
+      v2 = new Float32Array(NR);
+      laps = 0;
+      wasHighAtMonitor = false;
+      history = new Float32Array(traceCanvas.width).fill(0);
+      lapEl.textContent = '0';
+      setStatus(false);
+    }
+    seed();
+
+    function setStatus(active){
+      statusEl.querySelectorAll('.lang-en')[0].textContent = active ? 'Arrhythmia induced!' : 'Sinus rhythm';
+      statusEl.querySelectorAll('.lang-es')[0].textContent = active ? '¡Arritmia inducida!' : 'Ritmo sinusal';
+      statusEl.style.color = active ? '#c9576b' : 'var(--ink)';
+    }
+
+    function substep(){
+      for(let i=0;i<NR;i++){
+        const im1 = (i-1+NR)%NR, ip1 = (i+1)%NR;
+        const U=u[i], V=v[i];
+        const Lu = u[im1]+u[ip1]-2*U;
+        const dudt = D*Lu - k*U*(U-a)*(U-1) - U*V;
+        const eps = eps0 + (mu1*V)/(U+mu2);
+        const dvdt = eps*(-V - k*U*(U-a-1));
+        let nu = U+dt*dudt, nv = V+dt*dvdt;
+        if(nu<0) nu=0; if(nu>1.4) nu=1.4;
+        if(nv<0) nv=0; if(nv>2) nv=2;
+        u2[i]=nu; v2[i]=nv;
+      }
+      let tmp=u; u=u2; u2=tmp;
+      tmp=v; v=v2; v2=tmp;
+    }
+
+    function step(){
+      for(let s=0;s<SUBSTEPS;s++) substep();
+      const highNow = u[MONITOR] > 0.5;
+      if(highNow && !wasHighAtMonitor){
+        laps++;
+        lapEl.textContent = laps;
+        if(laps >= 3) setStatus(true);
+      }
+      wasHighAtMonitor = highNow;
+      if(laps < 3){
+        let anyActive = false;
+        for(let i=0;i<NR;i++){ if(u[i]>0.04){ anyActive=true; break; } }
+        if(!anyActive) setStatus(false);
+      }
+      history.copyWithin(0,1);
+      history[history.length-1] = u[MONITOR];
+    }
+
+    const restRGB=[30,23,46], excitedRGB=[47,173,166], tailRGB=[132,113,199];
+    function colorFor(U,V){
+      U=Math.min(U,1); V=Math.min(V,1);
+      const tailWeight = V*(1-U)*0.6;
+      const r = restRGB[0]+(excitedRGB[0]-restRGB[0])*U+(tailRGB[0]-restRGB[0])*tailWeight;
+      const g = restRGB[1]+(excitedRGB[1]-restRGB[1])*U+(tailRGB[1]-restRGB[1])*tailWeight;
+      const b = restRGB[2]+(excitedRGB[2]-restRGB[2])*U+(tailRGB[2]-restRGB[2])*tailWeight;
+      return `rgb(${r|0},${g|0},${b|0})`;
+    }
+
+    function renderRing(){
+      const W=ringCanvas.width, H=ringCanvas.height;
+      rctx.fillStyle = '#241B36';
+      rctx.fillRect(0,0,W,H);
+      const cx=W/2, cy=H/2, R=W*0.38;
+      for(let i=0;i<NR;i++){
+        const ang = (i/NR)*Math.PI*2 - Math.PI/2;
+        const x = cx+Math.cos(ang)*R, y = cy+Math.sin(ang)*R;
+        rctx.beginPath();
+        rctx.arc(x,y, W*0.045, 0, Math.PI*2);
+        rctx.fillStyle = colorFor(u[i], v[i]);
+        rctx.fill();
+      }
+      const sAng = (STIM_SITE/NR)*Math.PI*2 - Math.PI/2;
+      rctx.beginPath();
+      rctx.arc(cx+Math.cos(sAng)*R, cy+Math.sin(sAng)*R, W*0.02, 0, Math.PI*2);
+      rctx.fillStyle = '#fff';
+      rctx.fill();
+    }
+
+    function renderTrace(){
+      const W=traceCanvas.width, H=traceCanvas.height;
+      tctx.fillStyle = '#241B36';
+      tctx.fillRect(0,0,W,H);
+      tctx.beginPath();
+      tctx.strokeStyle = '#2FADA6';
+      tctx.lineWidth = 2;
+      for(let x=0;x<history.length;x++){
+        const y = H - 10 - history[x]*(H-20);
+        if(x===0) tctx.moveTo(x,y); else tctx.lineTo(x,y);
+      }
+      tctx.stroke();
+    }
+
+    function loop(){
+      step();
+      renderRing();
+      renderTrace();
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    window.stimulateRing = function(){
+      for(let d=-1; d<=1; d++){
+        u[(STIM_SITE+d+NR)%NR] = 1.0;
+      }
+    };
+    window.resetRing = function(){ seed(); };
+  })();
 </body>
 </html>
