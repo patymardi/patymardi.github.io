@@ -285,7 +285,7 @@
         <li><a href="#publications" class="lang-en">Publications</a><a href="#publications" class="lang-es">Publicaciones</a></li>
         <li><a href="#outreach" class="lang-en">Outreach</a><a href="#outreach" class="lang-es">Divulgación</a></li>
         <li><a href="#induce" class="lang-en">Induce</a><a href="#induce" class="lang-es">Inducir</a></li>
-        <li><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
+        <li hidden><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
         <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-es">Contacto</a></li>
       </ul>
       <div class="lang-switch">
@@ -462,7 +462,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="section-num">02</span>
-        <h2 class="lang-en">Publications</h2>
+        <h2 class="lang-en">Journal Publications</h2>
         <h2 class="lang-es">Publicaciones</h2>
       </div>
       <ul class="pub-list">
@@ -474,19 +474,6 @@
           </div>
         </li> 
         <li>
-          <span class="pub-year">2024</span>
-          <div>
-            <div class="pub-title">Impact of effective refractory period personalization on arrhythmia vulnerability in patient-specific atrial computer models</div>
-            <div class="pub-meta">Martínez Díaz P, Dasí A, Goetz C, Unger LA, Haas A, Luik A, Rodríguez B, Dössel O, Loewe A · EP Europace, 26(10):euae215 · <a href="https://doi.org/10.1093/europace/euae215">DOI</a></div>
-          </div>
-        </li>
-        <li>
-          <span class="pub-year">2024</span>
-          <div>
-            <div class="pub-title">The right atrium affects in silico arrhythmia vulnerability in both atria</div>
-            <div class="pub-meta">Martínez Díaz P, Sánchez J, Fitzen N, Ravens U, Dössel O, Loewe A · Heart Rhythm, 21:799–805 · <a href="https://doi.org/10.1016/j.hrthm.2024.01.047">DOI</a></div>
-          </div>
-        </li>
         <li>
           <span class="pub-year">2025</span>
           <div>
@@ -501,6 +488,20 @@
             <div class="pub-meta"> Barrios Espinosa C, Sánchez J, Appel S, Becker S, Krauß J, Martínez Díaz P, Unger L, Houillon M, and Loewe A · Engineering with Computers 41:2335–2358 · <a href="https://doi.org/10.1007/s00366-024-02094-9">DOI</a></div>
           </div>
         </li>
+          <span class="pub-year">2024</span>
+          <div>
+            <div class="pub-title">Impact of effective refractory period personalization on arrhythmia vulnerability in patient-specific atrial computer models</div>
+            <div class="pub-meta">Martínez Díaz P, Dasí A, Goetz C, Unger LA, Haas A, Luik A, Rodríguez B, Dössel O, Loewe A · EP Europace, 26(10):euae215 · <a href="https://doi.org/10.1093/europace/euae215">DOI</a></div>
+          </div>
+        </li>
+        <li>
+          <span class="pub-year">2024</span>
+          <div>
+            <div class="pub-title">The right atrium affects in silico arrhythmia vulnerability in both atria</div>
+            <div class="pub-meta">Martínez Díaz P, Sánchez J, Fitzen N, Ravens U, Dössel O, Loewe A · Heart Rhythm, 21:799–805 · <a href="https://doi.org/10.1016/j.hrthm.2024.01.047">DOI</a></div>
+          </div>
+        </li>
+        
       </ul>
     </div>
   </section>
@@ -767,7 +768,7 @@
   </section>
   
 
-  <section id="play">
+  <section id="play" hidden>
     <div class="wrap">
       <div class="section-head">
         <span class="section-num">07</span>
@@ -1207,10 +1208,10 @@
 
     function renderTrace(){
       const W=traceCanvas.width, H=traceCanvas.height;
-      tctx.fillStyle = '#241B36';
+      tctx.fillStyle = '#FFFFFF';
       tctx.fillRect(0,0,W,H);
       tctx.beginPath();
-      tctx.strokeStyle = '#2FADA6';
+      tctx.strokeStyle = '#8471C7';
       tctx.lineWidth = 2;
       for(let x=0;x<history.length;x++){
         const y = H - 10 - history[x]*(H-20);
