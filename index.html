@@ -568,11 +568,30 @@
       </ul>
     </div>
   </section>
+  <section id="awards">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="lang-en">Awards &amp; Honors</h2>
+      <h2 class="lang-es">Premios y distinciones</h2>
+    </div>
+    <ul class="pub-list">
+      <li><span class="pub-year">2024</span><div><div class="pub-title">Finalist, Young Investigator Award — Computing in Cardiology (CinC)</div><div class="pub-meta">"Insights from Explainable Machine Learning on Biatrial Arrhythmia Vulnerability Assessment" · Karlsruhe, Germany</div></div></li>
+      <li><span class="pub-year">2024</span><div><div class="pub-title">1st Finalist, Young Investigator Award (Basic and Translational Science) — EHRA 2024</div><div class="pub-meta">"Integrating the Right Atrium in Patient-Specific Computer Models..." · Berlin, Germany</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">2nd Place, Young Investigator Award (Basic and Translational Science) — EHRA 2023</div><div class="pub-meta">"Impact of Effective Refractory Period Personalization..." · Barcelona, Spain</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">1st Place, Best Poster — Gordon Research Seminar on Cardiac Arrhythmia Mechanisms</div><div class="pub-meta">Galveston, Texas, USA</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">Honorable Mention — Gordon Research Conference on Cardiac Arrhythmia Mechanisms</div><div class="pub-meta">Galveston, Texas, USA</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">1st Place, Student Competition — 57th VDE | DGBMT Conference</div><div class="pub-meta">"Discrepancy Between LGE-MRI and Electro-Anatomical Mapping..." (co-author)</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">Finalist, Student Competition — 57th VDE | DGBMT Conference</div><div class="pub-meta">"Impact of the Right Atrium on Arrhythmia Vulnerability" (co-author)</div></div></li>
+      <li><span class="pub-year">2023</span><div><div class="pub-title">Travel Grant — German Heart Foundation</div><div class="pub-meta">Gordon Research Conference on Cardiac Arrhythmia Mechanisms, Houston, Texas</div></div></li>
+    </ul>
+  </div>
+</section>
 
   <section id="outreach">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-num">04</span>
+        <span class="section-num">05</span>
         <h2 class="lang-en">Outreach &amp; Media</h2>
         <h2 class="lang-es">Divulgación y medios</h2>
       </div>
@@ -694,7 +713,7 @@
   <section id="induce">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-num">05</span>
+        <span class="section-num">06</span>
         <h2 class="lang-en">Induce</h2>
         <h2 class="lang-es">Inducir</h2>
       </div>
@@ -751,7 +770,7 @@
   <section id="play">
     <div class="wrap">
       <div class="section-head">
-        <span class="section-num">05</span>
+        <span class="section-num">07</span>
         <h2 class="lang-en">Play</h2>
         <h2 class="lang-es">Jugar</h2>
       </div>
@@ -1074,7 +1093,7 @@
 
     window.resetAblationGame = function(){ initGrid(); };
   })();
-</script>
+
 /* ============================================================
      RING MODEL — 1D reentry induction (Aliev–Panfilov)
      Same reaction-diffusion model as the tissue game, on a
@@ -1083,6 +1102,7 @@
      fails to die out because it never meets its own refractory
      tail from the opposite direction.
      ============================================================ */
+  
   (function(){
     const NR = 150;
     const k=8, a=0.15, eps0=0.002, mu1=0.2, mu2=0.3, D=1;
@@ -1214,5 +1234,6 @@
     };
     window.resetRing = function(){ seed(); };
   })();
+  </script>
 </body>
 </html>
