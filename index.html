@@ -1134,7 +1134,9 @@
     const NR = 150;
     const k=8, a=0.15, eps0=0.002, mu1=0.2, mu2=0.3, D=1;
     const dt=0.05, SUBSTEPS=4;
-    const STIM_SITE = 0;
+    //const STIM_SITE = 0;
+    const STIM1 = 0;
+    const STIM2 = 10;
     const MONITOR = Math.floor(NR/2); // opposite side of the ring
 
     const ringCanvas = document.getElementById('ring-canvas');
@@ -1202,7 +1204,7 @@
       history[history.length-1] = u[MONITOR];
     }
 
-    const restRGB=[30,23,46], excitedRGB=[47,173,166], tailRGB=[132,113,199];
+    /*const restRGB=[30,23,46], excitedRGB=[47,173,166], tailRGB=[132,113,199];
     function colorFor(U,V){
       U=Math.min(U,1); V=Math.min(V,1);
       const tailWeight = V*(1-U)*0.6;
@@ -1211,7 +1213,13 @@
       const b = restRGB[2]+(excitedRGB[2]-restRGB[2])*U+(tailRGB[2]-restRGB[2])*tailWeight;
       return `rgb(${r|0},${g|0},${b|0})`;
     }
-
+    */
+    function colorFor(U){
+    U=Math.min(U,1);
+    const hue = 240*(1-U);
+    return `hsl(${hue},100%,50%)`;
+    }
+    
     function renderRing(){
       const W=ringCanvas.width, H=ringCanvas.height;
       rctx.fillStyle = '#FFFFFF';
@@ -1253,10 +1261,12 @@
       requestAnimationFrame(loop);
     }
     loop();
-
+    let firstStim = true;
     window.stimulateRing = function(){
+      const stimSite = firstStim ? STIM1 : STIM2;
+      firstStim = false;
       for(let d=-1; d<=1; d++){
-        u[(STIM_SITE+d+NR)%NR] = 1.0;
+        u[(stimSite+d+NR)%NR] = 1.0;
       }
     };
     window.resetRing = function(){ seed(); };
