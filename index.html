@@ -768,7 +768,7 @@
               <canvas id="ring-canvas" width="200" height="200" style="width:100%; height:100%; display:block;"></canvas>
             </div>
             <div class="game-canvas-wrap">
-              <canvas id="trace-canvas" width="440" height="150" style="width:100%; height:auto; display:block;"></canvas>
+              <canvas id="trace-canvas" width="400" height="200" style="width:100%; height:auto; display:block;"></canvas>
             </div>
           </div>
           <div class="game-panel">
@@ -783,7 +783,7 @@
               <label for="s2-delay" style="display:block; margin-bottom:4px;">
                 <span class="lang-en">S2 delay (ms)</span><span class="lang-es">Retraso de S2 (ms)</span>
               </label>
-              <input type="number" id="s2-delay" value="180" min="20" max="500" step="5"
+              <input type="number" id="s2-delay" value="180" min="20" max="1000" step="1"
                 style="width:100%; font-family:var(--mono); padding:6px; border:1px solid var(--line); border-radius:4px;">
             </div>
             <button class="btn" onclick="stimulateRing()" style="cursor:pointer;">
@@ -1147,7 +1147,7 @@
     const MS_PER_FRAME = 2; // display-only time scale
     const SITE1 = 0;                 // 12 o'clock — S1
     const SITE2 = Math.floor(NR/4);  // 3 o'clock — S2
-    const MONITOR = Math.floor(NR/2); // opposite side of the ring
+    const MONITOR = Math.floor(NR/4); // opposite side of the ring
 
     const ringCanvas = document.getElementById('ring-canvas');
     const traceCanvas = document.getElementById('trace-canvas');
