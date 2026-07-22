@@ -284,7 +284,7 @@
         <li><a href="#research" class="lang-en">Research</a><a href="#research" class="lang-es">Investigación</a></li>
         <li><a href="#publications" class="lang-en">Publications</a><a href="#publications" class="lang-es">Publicaciones</a></li>
         <li><a href="#outreach" class="lang-en">Outreach</a><a href="#outreach" class="lang-es">Divulgación</a></li>
-        <li><a href="#induce" class="lang-en">Induce</a><a href="#induce" class="lang-es">Inducir</a></li>
+        <li><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
         <li hidden><a href="#play" class="lang-en">Play</a><a href="#play" class="lang-es">Jugar</a></li>
         <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-es">Contacto</a></li>
       </ul>
@@ -738,12 +738,12 @@
       
   </section>
   
-  <section id="induce">
+  <section id="play">
     <div class="wrap">
       <div class="section-head">
         <span class="section-num">06</span>
-        <h2 class="lang-en">Induce</h2>
-        <h2 class="lang-es">Inducir</h2>
+        <h2 class="lang-en">Play</h2>
+        <h2 class="lang-es">Jugar</h2>
       </div>
       <div class="play-box">
         <p class="play-intro lang-en">
@@ -1264,6 +1264,38 @@
         rctx.fillStyle = colorFor(u[i]);
         rctx.fill();
       }
+      
+            // ----- Color bar -----
+      const barX = W - 25;
+      const barY = 20;
+      const barH = H - 40;
+      const barW = 12;
+      
+      // Draw the gradient
+      for (let j = 0; j < barH; j++) {
+      
+          // Top = activated (20 mV), Bottom = resting (-80 mV)
+          const uVal = 1 - j / barH;
+      
+          rctx.fillStyle = colorFor(uVal);
+          rctx.fillRect(barX, barY + j, barW, 1);
+      }
+      
+      // Border
+      rctx.strokeStyle = "#333";
+      rctx.lineWidth = 1;
+      rctx.strokeRect(barX, barY, barW, barH);
+      
+      // Labels
+      rctx.fillStyle = "#333";
+      rctx.font = "10px sans-serif";
+      rctx.textAlign = "left";
+      rctx.textBaseline = "middle";
+      
+      rctx.fillText("20", barX + barW + 5, barY);
+      rctx.fillText("-80", barX + barW + 5, barY + barH);
+
+      // Stimulation Markers
       const a1 = (SITE1/NR)*Math.PI*2 - Math.PI/2;
       rctx.beginPath();
       rctx.arc(cx+Math.cos(a1)*R, cy+Math.sin(a1)*R, W*0.025, 0, Math.PI*2);
