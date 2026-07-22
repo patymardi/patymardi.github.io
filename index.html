@@ -214,7 +214,7 @@
   .media-card p{ font-size:0.76rem; }
   
     /* NUEVO */
-  #media-grid .media-card:nth-child(n+4){
+  #media-grid .media-card:nth-child(n+5){
     display:none;
   }
   
@@ -784,8 +784,8 @@
         </p>
         <div class="game-layout">
           <div>
-            <div class="game-canvas-wrap" style="margin-bottom:12px; aspect-ratio:1/1; max-width:220px;">
-              <canvas id="ring-canvas" width="200" height="200" style="width:100%; height:100%; display:block;"></canvas>
+            <div class="game-canvas-wrap" style="margin-bottom:12px; aspect-ratio:1/1; max-width:280px;">
+              <canvas id="ring-canvas" width="260" height="200" style="width:100%; height:100%; display:block;"></canvas>
             </div>
             <div class="game-canvas-wrap">
               <canvas id="trace-canvas" width="400" height="200" style="width:100%; height:auto; display:block;"></canvas>
@@ -891,7 +891,7 @@
   </div>
 </footer>
 
-<script> // JavaScript
+<script> /* JavaScript */
   const yr = new Date().getFullYear();
   document.getElementById('year-en').textContent = yr;
   document.getElementById('year-es').textContent = yr;
@@ -1182,7 +1182,7 @@
     const MS_PER_FRAME = 2; // display-only time scale
     const SITE1 = 0;                 // 12 o'clock — S1
     const SITE2 = Math.floor(NR/4);  // 3 o'clock — S2
-    const MONITOR = Math.floor(NR/4); // opposite side of the ring
+    const MONITOR = Math.floor(NR/4); // Sames as SITE2
 
     const ringCanvas = document.getElementById('ring-canvas');
     const traceCanvas = document.getElementById('trace-canvas');
@@ -1300,7 +1300,7 @@
         rctx.fill();
       }
       
-            // ----- Color bar -----
+      // ----- Color bar -----
       const barX = W - 25;
       const barY = 20;
       const barH = H - 40;
