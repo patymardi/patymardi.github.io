@@ -614,6 +614,7 @@
         Videos, publicaciones y charlas sobre gemelos digitales cardíacos y cardiología
         computacional, tanto para público científico como general.
       </p>
+      
   <div class="media-grid" id="media-grid">
       <div class="media-card">
         <div style="aspect-ratio:16/9;">
@@ -644,15 +645,6 @@
           <p style="margin-top:8px;"><a href="https://personalizeaf.net/using-computer-models-to-study-the-heart/">personalizeaf.net</a></p>
         </div>
       </div>
-
-      <details>
-
-      <summary>
-        <span class="lang-en">More media &amp; outreach </span>
-        <span class="lang-es">Más contenido </span>
-      </summary>
-
-      <!-- Remaining content -->
         
       <div class="media-card">
         <div style="aspect-ratio:16/9;">
@@ -667,6 +659,23 @@
           <p class="lang-es">[Descripción breve]</p>
         </div>
       </div>
+
+          <div class="media-card">
+        <div class="media-thumb lang-en">📁 Google Drive</div>
+        <div class="media-thumb lang-es">📁 Google Drive</div>
+        <div class="media-body">
+          <h3 class="lang-en">More videos</h3>
+          <h3 class="lang-es">Más videos</h3>
+          <p style="margin-top:6px;"><a href="[YOUR_GOOGLE_DRIVE_SHARE_LINK]">Open on Google Drive →</a></p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <button class="btn" onclick="toggleOutreach()" style="cursor:pointer;">
+        <span class="lang-en" id="outreach-toggle-en">Show all</span>
+        <span class="lang-es" id="outreach-toggle-es" style="display:none;">Ver todo</span>
+      </button>
+    </div>
     
       <div class="media-card">
         <div class="media-thumb lang-en">📝 Blog post</div>
@@ -732,7 +741,6 @@
           <p class="lang-es">Aún no subido a YouTube — cuando lo subas, reemplaza el div de esta tarjeta por el mismo patrón de iframe de arriba.</p>
         </div>
       </div>
-        </details>
   </div>  
   </div>
       
@@ -783,7 +791,7 @@
               <label for="s2-delay" style="display:block; margin-bottom:4px;">
                 <span class="lang-en">S2 delay (ms)</span><span class="lang-es">Retraso de S2 (ms)</span>
               </label>
-              <input type="number" id="s2-delay" value="180" min="20" max="1000" step="1"
+              <input type="number" id="s2-delay" value="250" min="20" max="1000" step="10"
                 style="width:100%; font-family:var(--mono); padding:6px; border:1px solid var(--line); border-radius:4px;">
             </div>
             <button class="btn" onclick="stimulateRing()" style="cursor:pointer;">
