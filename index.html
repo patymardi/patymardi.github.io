@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
+<style> /* CSS */
   /* ====================================================================
      COLOR PALETTE — edit these values to try different combinations.
      Everything on the page reads from these variables, so changing a
@@ -212,6 +212,15 @@
   .media-card h3{ font-size:0.82rem; }
   .media-card .media-body{ padding:10px; }
   .media-card p{ font-size:0.76rem; }
+  
+    /* NUEVO */
+  #media-grid .media-card:nth-child(n+4){
+    display:none;
+  }
+  
+  #media-grid.expanded .media-card{
+    display:block;
+  }
 
   /* ---- Play / ablation game ---- */
   .play-box{
@@ -671,8 +680,14 @@
       </div>
       
       <div class="media-card">
-        <div class="media-thumb lang-en">📝 Blog post</div>
-        <div class="media-thumb lang-es">📝 Entrada de blog</div>
+        <div style="aspect-ratio:16/9;">
+           <a href="https://personalizeaf.net/creating-a-virtual-heart/" target="_blank">
+            <img src="blog_2.jpg"
+                 alt="Building a digital twin"
+                 style="width:100%; height:100%; object-fit:cover;">
+          </a>
+        </div>
+    
         <div class="media-body">
           <h3>Creating a Virtual Heart</h3>
           <p class="lang-en">Personalize AF blog — how a cardiac digital twin is actually built, step by step.</p>
@@ -680,7 +695,7 @@
           <p style="margin-top:8px;"><a href="https://personalizeaf.net/creating-a-virtual-heart/">personalizeaf.net →</a></p>
         </div>
       </div>
-    
+     //hidden outreach
       <div class="media-card">
         <div class="media-thumb lang-en">🎤 ESC 365 · sign-in required</div>
         <div class="media-thumb lang-es">🎤 ESC 365 · requiere inicio de sesión</div>
@@ -876,7 +891,7 @@
   </div>
 </footer>
 
-<script>
+<script> // JavaScript
   const yr = new Date().getFullYear();
   document.getElementById('year-en').textContent = yr;
   document.getElementById('year-es').textContent = yr;
@@ -892,6 +907,21 @@
   // classes (like .eyebrow{display:block}) have equal CSS specificity
   // and were winning the cascade, showing EN and ES at the same time.
   setLang('en');
+
+  //Toggle Outreach
+  function toggleOutreach() {
+    const grid = document.getElementById("media-grid");
+
+    grid.classList.toggle("expanded");
+
+    const expanded = grid.classList.contains("expanded");
+
+    document.getElementById("outreach-toggle-en").textContent =
+        expanded ? "Show less" : "Show all";
+
+    document.getElementById("outreach-toggle-es").textContent =
+        expanded ? "Ver menos" : "Ver todo";
+  }
 
   /* ============================================================
      ROTOR VISUAL — start
