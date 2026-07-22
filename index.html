@@ -614,7 +614,7 @@
         Videos, publicaciones y charlas sobre gemelos digitales cardíacos y cardiología
         computacional, tanto para público científico como general.
       </p>
-
+  <div class="media-grid" id="media-grid">
       <div class="media-card">
         <div style="aspect-ratio:16/9;">
           <iframe width="100%" height="100%" style="display:block; border:0;"
@@ -733,7 +733,8 @@
         </div>
       </div>
         </details>
-    </div>
+  </div>  
+  </div>
       
   </section>
   
@@ -746,22 +747,19 @@
       </div>
       <div class="play-box">
         <p class="play-intro lang-en">
-          A 1D ring of tissue (same Aliev–Panfilov model), the classic minimal setup for
-          studying reentry — you can watch the actual action potential at a monitoring
-          point while you play. Click <strong>Stimulate</strong> once to fire a wave; it
-          normally dies out on its own. Click it a second time while the site is still
-          <em>partially</em> refractory (not fully recovered, not fully blocked) and the
-          wave can end up travelling in one direction only — circling the ring forever.
-          That's a self-sustaining arrhythmia, induced.
+          A 1D ring of tissue using the <strong>Aliev–Panfilov model</strong>. You can see the action potential while you play. <strong>S1</strong> (white marker, 12 o'clock) fires the moment
+          you click Stimulate. <strong>S2</strong> (black marker, 3 o'clock) fires
+          automatically after the delay you set below. Too short and S2 lands in fully
+          refractory tissue (nothing happens); too long and it just adds a normal
+          bidirectional beat. Somewhere in between is the <strong>vulnerable window</strong>. In a unidirectional block, S2 escapes in
+          only one direction, and the ring stays circulating forever.
         </p>
         <p class="play-intro lang-es">
-          Un anillo 1D de tejido (mismo modelo de Aliev–Panfilov), el montaje mínimo
-          clásico para estudiar la reentrada — puedes ver el potencial de acción real en
-          un punto de monitoreo mientras juegas. Da clic en <strong>Estimular</strong> una
+          Un anillo 1D de tejido usando el modelo <strong>Aliev–Panfilov</strong>. Puedes ver el potencial de acción mientras juegas. Da clic en <strong>Estimular</strong> una
           vez para disparar una onda; normalmente se extingue sola. Da clic una segunda
           vez mientras el sitio está <em>parcialmente</em> refractario (ni totalmente
           recuperado, ni totalmente bloqueado) y la onda puede terminar viajando en una
-          sola dirección — circulando el anillo para siempre. Eso es una arritmia
+          sola dirección, circulando el anillo para siempre. Eso es una arritmia
           autosostenida, inducida.
         </p>
         <div class="game-layout">
@@ -770,7 +768,7 @@
               <canvas id="ring-canvas" width="200" height="200" style="width:100%; height:100%; display:block;"></canvas>
             </div>
             <div class="game-canvas-wrap">
-              <canvas id="trace-canvas" width="400" height="100" style="width:100%; height:auto; display:block;"></canvas>
+              <canvas id="trace-canvas" width="440" height="150" style="width:100%; height:auto; display:block;"></canvas>
             </div>
           </div>
           <div class="game-panel">
@@ -780,6 +778,13 @@
             </div>
             <div class="game-stat" id="induce-status" style="font-family:var(--disp); font-weight:600; color:var(--ink);">
               <span class="lang-en">Sinus rhythm</span><span class="lang-es">Ritmo sinusal</span>
+            </div>
+            <div class="game-stat">
+              <label for="s2-delay" style="display:block; margin-bottom:4px;">
+                <span class="lang-en">S2 delay (ms)</span><span class="lang-es">Retraso de S2 (ms)</span>
+              </label>
+              <input type="number" id="s2-delay" value="180" min="20" max="500" step="5"
+                style="width:100%; font-family:var(--mono); padding:6px; border:1px solid var(--line); border-radius:4px;">
             </div>
             <button class="btn" onclick="stimulateRing()" style="cursor:pointer;">
               <span class="lang-en">⚡ Stimulate</span><span class="lang-es">⚡ Estimular</span>
@@ -1121,20 +1126,27 @@
     window.resetAblationGame = function(){ initGrid(); };
   })();
 
-/* ============================================================
+  /* ============================================================
      RING MODEL — 1D reentry induction (Aliev–Panfilov)
-     Same reaction-diffusion model as the tissue game, on a
-     periodic 1D ring instead of a 2D sheet. This is the classic
-     minimal model of "circus movement" reentry: a wave that
-     fails to die out because it never meets its own refractory
-     tail from the opposite direction.
+     Two fixed stimulation sites: S1 at 12 o'clock (fires the
+     instant "Stimulate" is clicked) and S2 at 3 o'clock (fires
+     automatically after the delay set in the input box). This is
+     the classic S1–S2 cross-timing protocol: depending on the
+     delay, S2 either fails to capture, captures in both
+     directions (dies out again), or captures in one direction
+     only — a real unidirectional block, which is what keeps the
+     wave circulating instead of fading.
+     Note: this model is nondimensional. The mV / ms axis labels
+     on the trace are an illustrative mapping for display, not a
+     calibrated physical unit conversion.
      ============================================================ */
-  
   (function(){
     const NR = 150;
     const k=8, a=0.15, eps0=0.002, mu1=0.2, mu2=0.3, D=1;
     const dt=0.05, SUBSTEPS=4;
-    const STIM_SITE = 0;
+    const MS_PER_FRAME = 2; // display-only time scale
+    const SITE1 = 0;                 // 12 o'clock — S1
+    const SITE2 = Math.floor(NR/4);  // 3 o'clock — S2
     const MONITOR = Math.floor(NR/2); // opposite side of the ring
 
     const ringCanvas = document.getElementById('ring-canvas');
@@ -1142,11 +1154,17 @@
     if(!ringCanvas || !traceCanvas) return;
     const rctx = ringCanvas.getContext('2d');
     const tctx = traceCanvas.getContext('2d');
+    const delayInput = document.getElementById('s2-delay');
+
+    const M_LEFT=42, M_RIGHT=10, M_TOP=12, M_BOTTOM=26;
+    const plotW = traceCanvas.width - M_LEFT - M_RIGHT;
+    const plotH = traceCanvas.height - M_TOP - M_BOTTOM;
 
     const lapEl = document.getElementById('lap-count');
     const statusEl = document.getElementById('induce-status');
 
-    let u, v, u2, v2, laps, wasHighAtMonitor, history;
+    let u, v, u2, v2, laps, wasHighAtMonitor, history, frameCount, s2Pending, s2FireAt;
+
 
     function seed(){
       u = new Float32Array(NR);
@@ -1155,7 +1173,10 @@
       v2 = new Float32Array(NR);
       laps = 0;
       wasHighAtMonitor = false;
-      history = new Float32Array(traceCanvas.width).fill(0);
+      frameCount = 0;
+      s2Pending = false;
+      s2FireAt = 0;
+      history = new Float32Array(plotW).fill(0);
       lapEl.textContent = '0';
       setStatus(false);
     }
@@ -1167,15 +1188,19 @@
       statusEl.style.color = active ? '#c9576b' : 'var(--ink)';
     }
 
+    function exciteSite(site){
+      for(let d=-1; d<=1; d++) u[(site+d+NR)%NR] = 1.0;
+    }
+
     function substep(){
       for(let i=0;i<NR;i++){
-        const im1 = (i-1+NR)%NR, ip1 = (i+1)%NR;
+        const im1=(i-1+NR)%NR, ip1=(i+1)%NR;
         const U=u[i], V=v[i];
-        const Lu = u[im1]+u[ip1]-2*U; //diffusion equation
+        const Lu = u[im1]+u[ip1]-2*U;
         const dudt = D*Lu - k*U*(U-a)*(U-1) - U*V;
         const eps = eps0 + (mu1*V)/(U+mu2);
         const dvdt = eps*(-V - k*U*(U-a-1));
-        let nu = U+dt*dudt, nv = V+dt*dvdt;
+        let nu=U+dt*dudt, nv=V+dt*dvdt;
         if(nu<0) nu=0; if(nu>1.4) nu=1.4;
         if(nv<0) nv=0; if(nv>2) nv=2;
         u2[i]=nu; v2[i]=nv;
@@ -1186,6 +1211,11 @@
 
     function step(){
       for(let s=0;s<SUBSTEPS;s++) substep();
+      frameCount++;
+      if(s2Pending && frameCount>=s2FireAt){
+        exciteSite(SITE2);
+        s2Pending = false;
+      }
       const highNow = u[MONITOR] > 0.5;
       if(highNow && !wasHighAtMonitor){
         laps++;
@@ -1194,13 +1224,14 @@
       }
       wasHighAtMonitor = highNow;
       if(laps < 3){
-        let anyActive = false;
+        let anyActive=false;
         for(let i=0;i<NR;i++){ if(u[i]>0.04){ anyActive=true; break; } }
         if(!anyActive) setStatus(false);
       }
       history.copyWithin(0,1);
       history[history.length-1] = u[MONITOR];
     }
+
 
     /*const restRGB=[30,23,46], excitedRGB=[47,173,166], tailRGB=[132,113,199];
     function colorFor(U,V){
@@ -1212,29 +1243,36 @@
       return `rgb(${r|0},${g|0},${b|0})`;
     }
     */
+
     function colorFor(U){
-    U=Math.min(U,1);
-    const hue = 240*(1-U);
-    return `hsl(${hue},100%,50%)`;
+      U = Math.min(Math.max(U,0),1);
+      const hue = 240*(1-U); // rainbow: blue (rest) -> red (excited)
+      return `hsl(${hue},100%,50%)`;
     }
-    
+
     function renderRing(){
       const W=ringCanvas.width, H=ringCanvas.height;
       rctx.fillStyle = '#FFFFFF';
       rctx.fillRect(0,0,W,H);
       const cx=W/2, cy=H/2, R=W*0.38;
       for(let i=0;i<NR;i++){
-        const ang = (i/NR)*Math.PI*2 - Math.PI/2;
-        const x = cx+Math.cos(ang)*R, y = cy+Math.sin(ang)*R;
+        const ang=(i/NR)*Math.PI*2 - Math.PI/2;
+        const x=cx+Math.cos(ang)*R, y=cy+Math.sin(ang)*R;
         rctx.beginPath();
-        rctx.arc(x,y, W*0.045, 0, Math.PI*2);
-        rctx.fillStyle = colorFor(u[i], v[i]);
+        rctx.arc(x,y,W*0.045,0,Math.PI*2);
+        rctx.fillStyle = colorFor(u[i]);
         rctx.fill();
       }
-      const sAng = (STIM_SITE/NR)*Math.PI*2 - Math.PI/2;
+      const a1 = (SITE1/NR)*Math.PI*2 - Math.PI/2;
       rctx.beginPath();
-      rctx.arc(cx+Math.cos(sAng)*R, cy+Math.sin(sAng)*R, W*0.02, 0, Math.PI*2);
+      rctx.arc(cx+Math.cos(a1)*R, cy+Math.sin(a1)*R, W*0.025, 0, Math.PI*2);
       rctx.fillStyle = '#fff';
+      rctx.strokeStyle = '#333'; rctx.lineWidth = 1.5;
+      rctx.fill(); rctx.stroke();
+      const a2 = (SITE2/NR)*Math.PI*2 - Math.PI/2;
+      rctx.beginPath();
+      rctx.arc(cx+Math.cos(a2)*R, cy+Math.sin(a2)*R, W*0.025, 0, Math.PI*2);
+      rctx.fillStyle = '#111';
       rctx.fill();
     }
 
@@ -1242,12 +1280,40 @@
       const W=traceCanvas.width, H=traceCanvas.height;
       tctx.fillStyle = '#FFFFFF';
       tctx.fillRect(0,0,W,H);
+
+      tctx.strokeStyle = '#ccc'; tctx.fillStyle = '#333';
+      tctx.font = '9px monospace'; tctx.lineWidth = 1;
+      const mvTicks = [-80,-40,0,20];
+      mvTicks.forEach(mv=>{
+        const uVal = (mv+80)/100;
+        const y = M_TOP + plotH - uVal*plotH;
+        tctx.beginPath(); tctx.moveTo(M_LEFT,y); tctx.lineTo(M_LEFT+plotW,y); tctx.stroke();
+        tctx.textAlign='right'; tctx.textBaseline='middle';
+        tctx.fillText(String(mv), M_LEFT-6, y);
+      });
+
+      const totalMs = plotW*MS_PER_FRAME;
+      [0,0.25,0.5,0.75,1].forEach(f=>{
+        const x = M_LEFT + f*plotW;
+        tctx.textAlign='center'; tctx.textBaseline='top';
+        tctx.fillText(Math.round(f*totalMs)+'ms', x, M_TOP+plotH+6);
+      });
+
+      tctx.save();
+      tctx.translate(12, M_TOP+plotH/2);
+      tctx.rotate(-Math.PI/2);
+      tctx.textAlign='center'; tctx.fillText('Voltage (mV)', 0, 0);
+      tctx.restore();
+      tctx.textAlign='center';
+      tctx.fillText('Time (ms)', M_LEFT+plotW/2, H-4);
+
       tctx.beginPath();
-      tctx.strokeStyle = '#8471C7';
-      tctx.lineWidth = 2;
+      tctx.strokeStyle = '#111';
+      tctx.lineWidth = 1.8;
       for(let x=0;x<history.length;x++){
-        const y = H - 10 - history[x]*(H-20);
-        if(x===0) tctx.moveTo(x,y); else tctx.lineTo(x,y);
+        const y = M_TOP + plotH - history[x]*plotH;
+        const px = M_LEFT + x;
+        if(x===0) tctx.moveTo(px,y); else tctx.lineTo(px,y);
       }
       tctx.stroke();
     }
@@ -1259,11 +1325,12 @@
       requestAnimationFrame(loop);
     }
     loop();
-    
+
     window.stimulateRing = function(){
-      for(let d=-1; d<=1; d++){
-        u[(STIM_SITE+d+NR)%NR] = 1.0;
-      }
+      exciteSite(SITE1);
+      const delay = parseFloat(delayInput.value) || 180;
+      s2FireAt = frameCount + Math.max(1, Math.round(delay/MS_PER_FRAME));
+      s2Pending = true;
     };
     window.resetRing = function(){ seed(); };
   })();
