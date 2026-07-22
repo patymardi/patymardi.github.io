@@ -1290,7 +1290,8 @@
       const W=ringCanvas.width, H=ringCanvas.height;
       rctx.fillStyle = '#FFFFFF';
       rctx.fillRect(0,0,W,H);
-      const cx=W/2, cy=H/2, R=W*0.38;
+      const barW = 12;
+      const cx=W/2+barW, cy=H/2, R=W*0.3;
       for(let i=0;i<NR;i++){
         const ang=(i/NR)*Math.PI*2 - Math.PI/2;
         const x=cx+Math.cos(ang)*R, y=cy+Math.sin(ang)*R;
@@ -1301,10 +1302,10 @@
       }
       
       // ----- Color bar -----
-      const barX = W - 25;
+      const barX = W - 200;
       const barY = 30;
       const barH = H - 60;
-      const barW = 12;
+      
       
       // Draw the gradient
       for (let j = 0; j < barH; j++) {
@@ -1329,6 +1330,20 @@
       
       rctx.fillText("20", barX + barW , barY -2);
       rctx.fillText("-80", barX + barW , barY + barH +15);
+
+      rctx.save();
+
+      rctx.translate(barX - 10, cy);
+
+      rctx.rotate(-Math.PI/2);
+
+      rctx.textAlign = "center";
+      rctx.textBaseline = "middle";
+      rctx.font = "11px sans-serif";
+
+      rctx.fillText("Voltage (mV)", 0, 0);
+
+      rctx.restore();
 
       // Stimulation Markers
       const a1 = (SITE1/NR)*Math.PI*2 - Math.PI/2;
