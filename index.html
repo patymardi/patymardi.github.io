@@ -1155,6 +1155,7 @@
     const rctx = ringCanvas.getContext('2d');
     const tctx = traceCanvas.getContext('2d');
     const delayInput = document.getElementById('s2-delay');
+    const tickStep = 100; // ms
 
     const M_LEFT=42, M_RIGHT=10, M_TOP=12, M_BOTTOM=26;
     const plotW = traceCanvas.width - M_LEFT - M_RIGHT;
@@ -1283,7 +1284,7 @@
 
       tctx.strokeStyle = '#ccc'; tctx.fillStyle = '#333';
       tctx.font = '9px monospace'; tctx.lineWidth = 1;
-      const mvTicks = [-80,-40,0,20];
+      const mvTicks = [-80,-60,-40,-20,0,20];
       mvTicks.forEach(mv=>{
         const uVal = (mv+80)/100;
         const y = M_TOP + plotH - uVal*plotH;
@@ -1293,11 +1294,19 @@
       });
 
       const totalMs = plotW*MS_PER_FRAME;
-      [0,0.25,0.5,0.75,1].forEach(f=>{
+      
+      /*[0,0.25,0.5,0.75,1].forEach(f=>{
         const x = M_LEFT + f*plotW;
         tctx.textAlign='center'; tctx.textBaseline='top';
         tctx.fillText(Math.round(f*totalMs)+'ms', x, M_TOP+plotH+6);
-      });
+      });*/
+      
+      for (let t = 0; t <= totalMs; t += tickStep) {
+        const x = M_LEFT + (t / totalMs) * plotW;
+        tctx.textAlign = "center";
+        tctx.textBaseline = "top";
+        tctx.fillText(t, x, M_TOP + plotH + 6);
+      }
 
       tctx.save();
       tctx.translate(12, M_TOP+plotH/2);
@@ -1305,7 +1314,7 @@
       tctx.textAlign='center'; tctx.fillText('Voltage (mV)', 0, 0);
       tctx.restore();
       tctx.textAlign='center';
-      tctx.fillText('Time (ms)', M_LEFT+plotW/2, H-4);
+      tctx.fillText('Time (ms)', M_LEFT+plotW/2, H-10);
 
       tctx.beginPath();
       tctx.strokeStyle = '#111';
