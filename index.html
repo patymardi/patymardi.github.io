@@ -1394,6 +1394,7 @@
         tctx.fillText(Math.round(f*totalMs)+'ms', x, M_TOP+plotH+6);
       });*/
       
+      const tickStep = 100;
       for (let t = 0; t <= totalMs; t += tickStep) {
         const x = M_LEFT + (t / totalMs) * plotW;
         tctx.textAlign = "center";
@@ -1438,7 +1439,7 @@
   })();
   window.addEventListener('scroll', () => {
     document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
-  
+  });
   </script>
 <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 </body>
